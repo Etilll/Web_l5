@@ -6,7 +6,108 @@ import aiohttp
 import asyncio
 import platform
 
-class WebManager(Utils, Translate):
+class WebChecks:
+    def correct_command(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        elif user_input <= (len(self.options_list) - 1):
+            return True
+        else:
+            return self.translate_string('wrong_day','yellow', 'green')
+    
+    def correct_curr(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        if user_input in self.options['exchange'].keys():
+            return True
+        else:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+
+    def correct_days(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        elif user_input <= 11:
+            return True
+    
+    def correct_days_free(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        elif user_input <= 10:
+            return True
+    
+class WebActions:
+    def open_options_menu(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        dependencies = {0:self.options_exchange}
+        dependencies[user_input]()
+    
+    def adjust_exchange_settings(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        elif self.options['exchange'][user_input][1]:
+            self.options['exchange'][user_input][1] = False
+        else:
+            self.options['exchange'][user_input][1] = True
+        print(self.translate_string('options_exchange_edited','yellow', 'green'))
+        self.save_exchange_options()
+        self.options_exchange()
+
+    def set_session_free(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        self.session_response = {}
+        days_list = []
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        elif user_input != 0:
+            for num in range(0,user_input + 1):
+                date_back = (datetime(date.today().year,date.today().month,date.today().day) - timedelta(days=num)).date()
+                today_day = self.day_format(date_back.day)
+                today_month = self.day_format(date_back.month)
+                today_year = self.day_format(date_back.year)
+                days_list.append([today_day, today_month, today_year])
+        else:
+            today_day = self.day_format(date.today().day)
+            today_month = self.day_format(date.today().month)
+            today_year = self.day_format(date.today().year)
+            days_list.append([today_day, today_month, today_year])
+
+    
+        if platform.system() == 'Windows':
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        result = asyncio.run(self.connect(days_list=days_list))
+        if result == 'abort':
+            return result
+        
+    async def connect(self, today_day=None,today_month=None,today_year=None,days_list=None):
+        self.session = aiohttp.ClientSession()
+        if days_list == None and (today_day and today_month and today_year):
+            async with self.session.get(f'https://api.privatbank.ua/p24api/exchange_rates?json&date={today_day}.{today_month}.{today_year}') as response:
+                if response.status < 400:
+                    result = await response.json()
+                    self.session_response = result['exchangeRate']
+                else:
+                    print(f"{self.YELLOW}Network error. Aborting the operation.{self.DEFAULT}")
+                    return 'abort'
+        elif days_list != None:
+            async def req_send(day_list):
+                async with self.session.get(f'https://api.privatbank.ua/p24api/exchange_rates?json&date={day_list[0]}.{day_list[1]}.{day_list[2]}') as response:
+                    if response.status < 400:
+                        result = await response.json()
+                        self.session_response[f"{day_list[1]}.{day_list[0]}.{day_list[2]}"] = result['exchangeRate']
+                        return
+                    else:
+                        print(f"{self.YELLOW}Network error. Aborting the operation.{self.DEFAULT}")
+                        return 'abort'
+                    
+            [await asyncio.create_task(req_send(day_list)) for day_list in days_list]
+        await self.session.close()
+
+class WebManager(Utils, Translate, WebChecks, WebActions):
     def __init__(self, parent_class):
         self.parent = parent_class
         self.parent.modules.append(self)
@@ -69,65 +170,11 @@ class WebManager(Utils, Translate):
                 }
         self.dialogue_constructor(cfg)
 
-    def show_settings_options(self):
-        string = self.translate_string('settings_options','green')
-        for item in self.options_list:
-            string += f"\n{self.RED}{self.options_list.index(item)}{self.GREEN}. {self.translate_string(item,'green')}"
-        return string
-    
-    def correct_command(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        elif user_input <= (len(self.options_list) - 1):
-            return True
-        else:
-            return self.translate_string('wrong_day','yellow', 'green')
-    
-    def open_options_menu(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        dependencies = {0:self.options_exchange}
-        dependencies[user_input]()
-    
     def options_exchange(self):
         cfg = {   0:{ "type":"show", "checks":{}, "string":{self.show_exchange_options:[]}},
                     1:{ "type":"act", "prompt":f"{self.opnng}{self.translate_string('choose_curr')}", "checks":{self.correct_curr:[]}, "actions":{self.adjust_exchange_settings:[]}},
                 }
         self.dialogue_constructor(cfg)
-
-    def show_exchange_options(self):
-        string = self.translate_string('currency_choose','green')
-        for id,data in self.options['exchange'].items():
-            string += f"\n{self.RED}{id}{self.GREEN}. {data[0]} - {self.currency_status(data[1])}"
-        string += f"\n{self.translate_string('currency_back','green')} '{self.RED}cancel{self.GREEN}'"
-        return string
-    
-    def adjust_exchange_settings(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        elif self.options['exchange'][user_input][1]:
-            self.options['exchange'][user_input][1] = False
-        else:
-            self.options['exchange'][user_input][1] = True
-        print(self.translate_string('options_exchange_edited','yellow', 'green'))
-        self.save_exchange_options()
-        self.options_exchange()
-
-    def correct_curr(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        if user_input in self.options['exchange'].keys():
-            return True
-        else:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-
-    def currency_status(self, status):
-        if status:
-            return self.translate_string('currency_enabled','yellow','green')
-        else:
-            return self.translate_string('currency_disabled','red','green')
 
     def exchange_starter(self):
         cfg = {   0:{ "type":"show", "checks":{}, "string":{self.show_exchange_dates:[]}},
@@ -135,6 +182,34 @@ class WebManager(Utils, Translate):
                 }
         self.dialogue_constructor(cfg)
 
+    def branch_exchange(self, user_input):
+        user_input = self.input_to_id(self.single_param(user_input))
+        cfg = None
+        if type(user_input) != int:
+            return self.translate_string('wrong_id_error','yellow', 'green')
+        elif user_input != 11:
+            cfg = {   0:{ "type":"show", "checks":{}, "string":{self.set_session:[user_input], self.show_server_response:[]}}
+                    }
+        else:
+            cfg = {   0:{ "type":"act", "prompt":f"{self.opnng}{self.translate_string('days_enter')}", "checks":{self.correct_days_free:[]}, "actions":{self.set_session_free:[]}},
+                        1:{ "type":"show", "checks":{}, "string":{self.show_server_response_free:[]}},
+                    }
+
+        self.dialogue_constructor(cfg)
+
+    def show_settings_options(self):
+        string = self.translate_string('settings_options','green')
+        for item in self.options_list:
+            string += f"\n{self.RED}{self.options_list.index(item)}{self.GREEN}. {self.translate_string(item,'green')}"
+        return string
+    
+    def show_exchange_options(self):
+        string = self.translate_string('currency_choose','green')
+        for id,data in self.options['exchange'].items():
+            string += f"\n{self.RED}{id}{self.GREEN}. {data[0]} - {self.currency_status(data[1])}"
+        string += f"\n{self.translate_string('currency_back','green')} '{self.RED}cancel{self.GREEN}'"
+        return string
+    
     def show_exchange_dates(self):
         string = self.translate_string('days_list','green')
         for day in range(0,11):
@@ -143,14 +218,7 @@ class WebManager(Utils, Translate):
         string += f"\n{self.RED}11{self.GREEN}. {self.translate_string('see_free_number','green')}"
         return string
     
-    def correct_days(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        elif user_input <= 11:
-            return True
-    
-    def set_session(self, user_input):
+    def set_session(self, user_input): #show class, despite not being named like one. Thus, returns a string.
         user_input = user_input[0]
         if type(user_input) != int:
             return self.translate_string('wrong_id_error','yellow', 'green')
@@ -175,60 +243,6 @@ class WebManager(Utils, Translate):
                         string += f"\n{self.RED}{key}. {value[0]}{self.GREEN}: {self.translate_string('currency_sell')} - {item['saleRateNB']}, {self.translate_string('currency_buy')} - {item['purchaseRateNB']}"
         return string
     
-    def day_format(self, var):
-        if len(str(var)) == 1:
-            return f'0{str(var)}'
-        else:
-            return str(var)
-
-    def branch_exchange(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        cfg = None
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        elif user_input != 11:
-            cfg = {   0:{ "type":"show", "checks":{}, "string":{self.set_session:[user_input], self.show_server_response:[]}}
-                    }
-        else:
-            cfg = {   0:{ "type":"act", "prompt":f"{self.opnng}{self.translate_string('days_enter')}", "checks":{self.correct_days_free:[]}, "actions":{self.set_session_free:[]}},
-                        1:{ "type":"show", "checks":{}, "string":{self.show_server_response_free:[]}},
-                    }
-
-        self.dialogue_constructor(cfg)
-
-    def correct_days_free(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        elif user_input <= 10:
-            return True
-    
-    def set_session_free(self, user_input):
-        user_input = self.input_to_id(self.single_param(user_input))
-        self.session_response = {}
-        days_list = []
-        if type(user_input) != int:
-            return self.translate_string('wrong_id_error','yellow', 'green')
-        elif user_input != 0:
-            for num in range(0,user_input + 1):
-                date_back = (datetime(date.today().year,date.today().month,date.today().day) - timedelta(days=num)).date()
-                today_day = self.day_format(date_back.day)
-                today_month = self.day_format(date_back.month)
-                today_year = self.day_format(date_back.year)
-                days_list.append([today_day, today_month, today_year])
-        else:
-            today_day = self.day_format(date.today().day)
-            today_month = self.day_format(date.today().month)
-            today_year = self.day_format(date.today().year)
-            days_list.append([today_day, today_month, today_year])
-
-    
-        if platform.system() == 'Windows':
-            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        result = asyncio.run(self.connect(days_list=days_list))
-        if result == 'abort':
-            return result
-        
     def show_server_response_free(self):
         result_list = []
         for day,rates in self.session_response.items():
@@ -244,28 +258,14 @@ class WebManager(Utils, Translate):
             result_list.append(data_to_append)
         return result_list
     
-    async def connect(self, today_day=None,today_month=None,today_year=None,days_list=None):
-        self.session = aiohttp.ClientSession()
-        if days_list == None and (today_day and today_month and today_year):
-            async with self.session.get(f'https://api.privatbank.ua/p24api/exchange_rates?json&date={today_day}.{today_month}.{today_year}') as response:
-                if response.status < 400:
-                    result = await response.json()
-                    self.session_response = result['exchangeRate']
-                else:
-                    print(f"{self.YELLOW}Network error. Aborting the operation.{self.DEFAULT}")
-                    return 'abort'
-        elif days_list != None:
-            async def req_send(day_list):
-                async with self.session.get(f'https://api.privatbank.ua/p24api/exchange_rates?json&date={day_list[0]}.{day_list[1]}.{day_list[2]}') as response:
-                    if response.status < 400:
-                        result = await response.json()
-                        self.session_response[f"{day_list[1]}.{day_list[0]}.{day_list[2]}"] = result['exchangeRate']
-                        return
-                    else:
-                        print(f"{self.YELLOW}Network error. Aborting the operation.{self.DEFAULT}")
-                        return 'abort'
-                    
-            [await asyncio.create_task(req_send(day_list)) for day_list in days_list]
-        await self.session.close()
-        
-    
+    def day_format(self, var):
+        if len(str(var)) == 1:
+            return f'0{str(var)}'
+        else:
+            return str(var)
+
+    def currency_status(self, status):
+        if status:
+            return self.translate_string('currency_enabled','yellow','green')
+        else:
+            return self.translate_string('currency_disabled','red','green')
