@@ -5,7 +5,6 @@ import json
 import aiohttp
 import asyncio
 import platform
-from concurrent.futures import ThreadPoolExecutor
 
 class WebManager(Utils, Translate):
     def __init__(self, parent_class):
