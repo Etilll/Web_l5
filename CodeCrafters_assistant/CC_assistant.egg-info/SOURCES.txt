@@ -1,0 +1,12 @@
+MANIFEST.in
+setup.py
+CC_assistant.egg-info/PKG-INFO
+CC_assistant.egg-info/SOURCES.txt
+CC_assistant.egg-info/dependency_links.txt
+CC_assistant.egg-info/entry_points.txt
+CC_assistant.egg-info/requires.txt
+CC_assistant.egg-info/top_level.txt
+CodeCrafters_assistant/__init__.py
+CodeCrafters_assistant/main.py
+CodeCrafters_assistant/utils.py
+CodeCrafters_assistant/web.py

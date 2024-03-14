@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding="UTF-8"?>
+
+<eng>
+	<default>
+   		<local_not_found_1 text="Запис"/>
+   		<local_not_found_2 text="у XML-файлі не знайдено!"/>
+   		<confirm text="Y"/>
+   		<confirm_long text="Yes"/>
+   		<deny text="N"/>
+   		<deny_long text="No"/>
+   		<stop text="Stop"/>
+   		<change_language_desc text="Sets the programm's language."/>
+   		<change_language_list text="Languages available:"/>
+   		<change_module_desc text="Allows you to switch to a different menu."/>
+   		<print_module_p0 text="Available menus"/>
+   		<print_module_p1 text="To choose the"/>
+   		<print_module_p2 text="menu, enter"/>
+   		<print_module_p3 text="in the console."/>
+   		<assistant_welcome text="Hello! I'm your personal assistant!"/>
+   		<wrong_module_number text="Wrong module number. Please, try again!"/>
+   		<negative_id_error text="An id cannot be a negative number!"/>
+   		<wrong_id_error text="Wrong id, try again!"/>
+
+   		<enter_the_command text="Please, enter the command:   "/>
+   		<enter_to_leave text="If you decide to exit the program, enter"/>
+   		<enter_back_p0 text="Enter"/>
+   		<enter_back_p1 text="Y/Yes"/>
+   		<enter_back_p2 text=" to return to the previous menu"/>
+
+   		<menu_entered_p0 text="You are in the"/>
+   		<menu_entered_p1 text=" menu. Available commands:"/>
+
+   		<return_to_main text="Return to the main menu"/>
+   		<exit text="Exit the program"/>
+   		<cancel text="Cancels the execution of the current command (e.g. create/edit/sort_files)"/>
+   		<goodbye text="Goodbye!"/>
+   		<select_language text="Please, choose the language"/>
+   		<select_module text="Please, choose the menu"/>
+
+   		<please_enter_confirm_p0 text="Please, enter"/>
+   		<please_enter_confirm_p1 text="to confirm your choice,"/>
+   		<please_enter_confirm_p2 text="or"/>
+   		<please_enter_confirm_p3 text="to cancel the operation"/>
+   		<please_enter_p0_1 text="Please, choose"/>
+   		<please_enter_p0 text="Please, enter the"/>
+   		<please_enter_p1 text="or"/>
+   		<please_enter_p2 text="N"/>
+   		<please_enter_p3 text=", if you want to add it later"/>
+
+   		<choose_search_mode text="search mode number"/>
+   		<enter_text_to_find text="text you want to find"/>
+   		<enter_edit text="what you are going to edit"/>
+   		<enter_remove text="what you are going to remove"/>
+   		<enter_new_text text="new text"/>
+
+   		<list_empty text="No saved records!"/>
+   		<record_id_not_found text="There is no record with this id, try again!"/>
+	</default>
+	<web>
+		<!--Web manager-specific commands start-->
+
+   		<module_name text="web manager"/>
+   		<module_desc text="web manager"/>
+
+   		<settings_desc text="Allows you to adjust the settings of this menu's commands."/>
+
+   		<currency_choose text="Choose the currency to enable or disable it:"/>
+   		<currency_enabled text="Enabled"/>
+   		<currency_disabled text="Disabled"/>
+   		<currency_back text="To return to the menu, enter"/>
+   		<currency_sell text="Sell"/>
+   		<currency_buy text="Buy"/>
+   		<currency_show text="Exchange rates for the chosen date:"/>
+
+   		<days_enter text=" number of days, from 0 to 10 (days back)"/>
+
+   		<choose_curr text="number, representing the currency you need"/>
+   		<settings_options text="Here you can adjust:"/>
+   		<options_exchange text="Exchange rates display."/>
+   		<options_exchange_edited text="Setting successfully edited"/>
+   		<choose_options_command text="number, representing the command you need"/>
+
+   		<exchange_desc text="Allows you to see the official exchange rates of the Privat bank for the last 10 days."/>
+   		<choose_date text="number, representing the date you need"/>
+   		<days_list text="The list of dates, for which you can see an exchange rate:"/>
+
+   		<see_free_number text="See rates for a chosen amount of days (up to 10 days back, developer logs)."/>
+   		<see_for text="See rates for"/>
+   		<wrong_day text="Wrong day, try again!"/>
+   		<exchange_menu_opt text="Exchange menu options:"/>
+   		<exchange_menu_launch text="See the exchange rates:"/>
+   		<exchange_menu_settings text="Open the settings:"/>
+
+		<!--Web manager-specific commands end-->
+	</web>
+</eng>

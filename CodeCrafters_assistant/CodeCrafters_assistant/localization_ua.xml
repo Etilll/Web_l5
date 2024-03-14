@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding="UTF-8"?>
+
+<ua>
+	<default>
+   		<local_not_found_1 text="Запис"/>
+   		<local_not_found_2 text="у XML-файлі не знайдено!"/>
+   		<confirm text="Т"/>
+   		<confirm_long text="Так"/>
+   		<deny text="Н"/>
+   		<deny_long text="Ні"/>
+   		<stop text="Стоп"/>
+   		<change_language_desc text="Встановлює мову програми."/>
+   		<change_language_list text="Список доступних мов:"/>
+   		<change_module_desc text="Дозволяє переключитись на інше меню."/>
+   		<print_module_p0 text="Можна перейти у такі меню"/>
+   		<print_module_p1 text="Щоб обрати меню"/>
+   		<print_module_p2 text="напишіть"/>
+   		<print_module_p3 text="у консоль."/>
+   		<assistant_welcome text="Привіт! Я ваш персональний помічник."/>
+   		<wrong_module_number text="Неправильний номер модуля. Спробуйте ще раз!"/>
+   		<negative_id_error text="Id не може бути від'ємним числом!"/>
+   		<wrong_id_error text="Некоректний id, спробуйте ще раз!"/>
+
+   		<enter_the_command text="Будь ласка, введіть необхідну команду:   "/>
+   		<enter_to_leave text="Якщо захочете вийти з програми, напишіть"/>
+   		<enter_back_p0 text="Напишіть"/>
+   		<enter_back_p1 text="Т/Так"/>
+   		<enter_back_p2 text=", щоб повернутися до попереднього меню"/>
+
+   		<menu_entered_p0 text="Ви перейшли у меню"/>
+   		<menu_entered_p1 text=". Список доступних команд:"/>
+
+   		<return_to_main text="Повернутися у головне меню"/>
+   		<exit text="Вийти з програми"/>
+   		<cancel text="Скасовує виконання поточної команди (як-от create/edit/sort_files)"/>
+   		<goodbye text="До побачення!"/>
+   		<select_language text="Будь ласка, оберіть мову"/>
+   		<select_module text="Будь ласка, оберіть меню"/>
+
+   		<please_enter_confirm_p0 text="Будь ласка, введіть"/>
+   		<please_enter_confirm_p1 text="щоб підтвердити ваш вибір"/>
+   		<please_enter_confirm_p2 text="або"/>
+   		<please_enter_confirm_p3 text="щоб скасувати операцію"/>
+   		<please_enter_p0_1 text="Оберіть, будь ласка,"/>
+   		<please_enter_p0 text="Будь ласка, введіть"/>
+   		<please_enter_p1 text="або"/>
+   		<please_enter_p2 text="N"/>
+   		<please_enter_p3 text=", якщо бажаєте додати пізніше"/>
+
+   		<choose_search_mode text="номер режиму пошуку"/>
+   		<enter_text_to_find text="текст, який ви бажаєте знайти"/>
+   		<enter_edit text="що ви збираєтесь редагувати"/>
+   		<enter_remove text="що ви збираєтесь видалити"/>
+   		<enter_new_text text="новий текст"/>
+
+   		<list_empty text="Немає збережених записів!"/>
+   		<record_id_not_found text="Запису з таким id немаэ, спробуйте ще раз!"/>
+	</default>
+	<web>
+		<!--Web manager-specific commands start-->
+
+   		<module_name text="веб менеджера"/>
+   		<module_desc text="веб менеджер"/>
+
+   		<settings_desc text="Дозволяє налаштувати команди цього меню."/>
+
+   		<currency_choose text="Оберіть валюту, щоб включити або приховати її:"/>
+   		<currency_enabled text="Включена"/>
+   		<currency_disabled text="Прихована"/>
+   		<currency_back text="Щоб повернутися в меню, нажміть"/>
+   		<currency_sell text="Продаж"/>
+   		<currency_buy text="Купівля"/>
+   		<currency_show text="Курс валют на обрану дату:"/>
+
+   		<days_enter text=" кількість днів, від 0 до 10 (днів тому)"/>
+
+   		<choose_curr text="цифру, що відповідає валюті, яка вам потрібна"/>
+   		<settings_options text="Тут ви можете налаштувати:"/>
+   		<options_exchange text="Відображення курсу валют."/>
+   		<options_exchange_edited text="Параметр успішно змінено"/>
+   		<choose_options_command text="цифру, що відповідає команді, яка вам потрібна"/>
+
+   		<exchange_desc text="Дозволяє побачити офіційний курс валют Приватбанка за останні 10 днів."/>
+   		<choose_date text="цифру, що відповідає даті, яка вам потрібна"/>
+   		<days_list text="Список дат, за які можна побачити курс валют:"/>
+
+   		<see_free_number text="Подивитись курс валют за обрану кількість днів (до 10 днів назад, логи для розробника)."/>
+   		<see_for text="Побачити курс валют за"/>
+   		<wrong_day text="неправильна дата, спробуйте ще раз!"/>
+   		<exchange_menu_opt text="Параметри меню обміну валют:"/>
+   		<exchange_menu_launch text="Подивитись курс валют:"/>
+   		<exchange_menu_settings text="Відкрити налаштування:"/>
+
+		<!--Web manager-specific commands end-->
+	</web>
+</ua>

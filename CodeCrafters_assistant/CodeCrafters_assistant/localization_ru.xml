@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding="UTF-8"?>
+
+<ru>
+	<default>
+   		<local_not_found_1 text="Запись"/>
+   		<local_not_found_2 text="в XML-файле не найдена!"/>
+   		<confirm text="Д"/>
+   		<confirm_long text="Да"/>
+   		<deny text="Н"/>
+   		<deny_long text="Нет"/>
+   		<stop text="Стоп"/>
+   		<change_language_desc text="Устанавливает язык программы."/>
+   		<change_language_list text="Список доступних языков:"/>
+   		<change_module_desc text="Позволяет переключиться на другое меню."/>
+   		<print_module_p0 text="Можно перейти в такие меню"/>
+   		<print_module_p1 text="Чтобы выбрать меню"/>
+   		<print_module_p2 text="напишите"/>
+   		<print_module_p3 text="в консоль."/>
+   		<assistant_welcome text="Привет! Я ваш персональный помощник."/>
+   		<wrong_module_number text="Неправильный номер модуля. Попробуйте ещё раз!"/>
+   		<negative_id_error text="Id не может быть отрицательным числом!"/>
+   		<wrong_id_error text="Некорректний id, попробуйте ещё раз!"/>
+
+   		<enter_the_command text="Пожалуйста, введите необходимую команду:   "/>
+   		<enter_to_leave text="Если захотите выйти из программы, напишите"/>
+   		<enter_back_p0 text="Напишите"/>
+   		<enter_back_p1 text="Д/Да"/>
+   		<enter_back_p2 text=", чтобы вернуться в предыдущее меню"/>
+
+   		<menu_entered_p0 text="Вы перешли в меню"/>
+   		<menu_entered_p1 text=". Список доступных команд:"/>
+
+   		<return_to_main text="Вернуться в главное меню"/>
+   		<exit text="Выйти из программы"/>
+   		<cancel text="Отменяет выполнение текущей команды (например, create/edit/sort_files)"/>
+   		<goodbye text="До свидания!"/>
+   		<select_language text="Пожалуйста, выберите язык"/>
+   		<select_module text="Пожалуйста, выберите меню"/>
+
+   		<please_enter_confirm_p0 text="Пожалуйста, введите"/>
+   		<please_enter_confirm_p1 text="чтобы подтвердить ваш выбор"/>
+   		<please_enter_confirm_p2 text="или"/>
+   		<please_enter_confirm_p3 text="чтобы отменить операцию"/>
+   		<please_enter_p0_1 text="Выберите, пожалуйста,"/>
+   		<please_enter_p0 text="Введите, пожалуйста,"/>
+   		<please_enter_p1 text="либо"/>
+   		<please_enter_p2 text="N"/>
+   		<please_enter_p3 text=", если желаете добавить позже"/>
+
+   		<choose_search_mode text="номер режима поиска"/>
+   		<enter_text_to_find text="текст, который вы хотите найти"/>
+   		<enter_edit text="что вы собираетесь редактировать"/>
+   		<enter_remove text="что вы собираетесь удалить"/>
+   		<enter_new_text text="новый текст"/>
+
+   		<list_empty text="Нет сохранённых записей!"/>
+   		<record_id_not_found text="Записи с таким id нет, попробуйте ещё раз!"/>
+	</default>
+	<web>
+		<!--Web manager-specific commands start-->
+
+   		<module_name text="веб менеджера"/>
+   		<module_desc text="веб менеджер"/>
+
+   		<settings_desc text="Позволяет настроить команды этого меню."/>
+
+   		<currency_choose text="Выберите валюту, чтобы отключить или включить её отображение:"/>
+   		<currency_enabled text="Включена"/>
+   		<currency_disabled text="Выключена"/>
+   		<currency_back text="Чтобы вернуться в меню, введите"/>
+   		<currency_sell text="Продажа"/>
+   		<currency_buy text="Покупка"/>
+   		<currency_show text="Курс валют на выбраную дату:"/>
+
+   		<days_enter text=" Количество дней, от 0 до 10 (дней назад)"/>
+
+   		<choose_curr text="номер, соответствующий нужной валюте"/>
+   		<settings_options text="Тут вы можете настроить:"/>
+   		<options_exchange text="Отображение курса валют."/>
+   		<options_exchange_edited text="Параметр успешно отредактирован!"/>
+   		<choose_options_command text="номер, соответствующий нужной команде"/>
+
+   		<exchange_desc text="Позволяет посмотреть официальный курс валют Приватбанка за последние 10 дней."/>
+   		<choose_date text="номер, соответствующий нужной дате"/>
+   		<days_list text="Список дат, для которых можно посмотреть курс валют:"/>
+
+   		<see_free_number text="Посмотреть курс валют за выбранный промежуток времени (до 10 дней, логи для разработчика)."/>
+   		<see_for text="Посмотреть курс для"/>
+   		<wrong_day text="Неправильный день, попробуйте ещё раз!!"/>
+   		<exchange_menu_opt text="Опции меню обмена валют:"/>
+   		<exchange_menu_launch text="Посмотреть курс валют:"/>
+   		<exchange_menu_settings text="Открыть настройки:"/>
+
+		<!--Web manager-specific commands end-->
+	</web>
+</ru>
